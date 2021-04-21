@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant&family=Montserrat:wght@400&display=swap');
+
+body{
+    background-color: rgb(233, 233, 233)!important;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    font-family: 'Assistant', sans-serif;
+}
+.row_container{
+    display: flex;
+    justify-content: center;
+}
+.form-cont{
+    background-color: #ffffff;
+    margin-top: 5rem;
+    border-bottom-left-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.header{
+    background-color: #14b356;
+    display: flex;
+    justify-content: center;
+    margin-top: -1rem;
+    border-top-left-radius: .2rem;
+    border-top-right-radius: .2rem;
+}
+.header h4{
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+}
+.header .top-head{
+    font-size: 1.2rem;
+}
+
+.logo_div{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.logo{
+    padding: .2rem;
+    width: 25%;
+}
+.image-logo{
+    border-radius: 1rem;
+}
+
+ .input-field {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.password i, .username i{
+    position: absolute;
+    padding: 1rem;
+}

@@ -1,0 +1,37 @@
+{% extends 'rentals/layout.html' %}
+
+{% block body-content %}
+<div class="container">
+    <div class="row">
+        <div class="header m-3">
+            <h3>Add Building</h3>
+        </div>
+        <form action="{% url 'addBuilding' %}" method="post">
+        {% csrf_token %}
+            <div class="row from-group p-2">
+                <label for="name"> Name
+                    <input class="form-control" id="name" name="name" type="text">
+                </label>
+            </div>
+            <div class="row from-group p-2">
+                <label for="location"> Location
+                    <input class="form-control" id="location" name="location" type="text">
+                </label>
+            </div>
+            <div class="row from-group p-2">
+                <label for="owner"> Owner
+                    <input class="form-control" id="owner" name="owner" type="text">
+                </label>
+            </div>
+            <div class="row from-group p-2">
+                <label for="units_control"> Units count
+                    <input class="form-control" id="units_control" name="units" type="text">
+                </label>
+            </div>
+            <div class="form-group p-3">
+                <button class="btn btn-primary p-2">Add Building</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock body-content %}
