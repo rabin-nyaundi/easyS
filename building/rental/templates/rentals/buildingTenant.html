@@ -1,0 +1,51 @@
+{% extends 'rentals/layout.html' %}
+
+{% block body-content %}
+<div class="container">
+    <div class="row all p-3">
+    {% if messages %}
+    <div class="alert alert-success">
+        {{messages}}
+    </div>
+    {% endif %}
+        
+        <table style="border: 1px Solid black!important;" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <h5>All Buildings</h5>
+            </tr>
+        </thead>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Owner</th>
+                    <th>Units </th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for building in buildings %}
+                <tr>
+                    <td>
+                        {{building.name}}
+                    </td>
+                    <td>
+                        {{building.location}}
+                    </td>
+                    <td>
+                        {{building.owner}}
+                    </td>
+                    <td>
+                        {{building.units_count}}
+                    </td>
+                    <td>
+                        <a class="btn btn-success" href="{% url 'updateBuilding' building.id%} "><i class="fa fa-pencil"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body-content %}

@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . forms import CreateUser
-from .models import Building, UserProfile
+from .models import Building, UserProfile, Tenant, BuildingTenant
 
 # Create your views here.
 
@@ -18,7 +18,7 @@ def index(request):
                 {'buildings': buildings}
             )    
         
-        else:
+        if request.method == 'POST':
             return HttpResponse("Method not allowed")
         
     return render(request, 'rentals/index.html',
@@ -114,5 +114,109 @@ def update_building_view(request, id):
             'buildings': buildings
         })
         
+def add_tenant_view(request):
+    tenants = Tenant.objects.all()
+
+    if request.method == "GET":
+        if tenants:
+            return render(request, 'rentals/addTenant.html',
+                { 'tenants': tenants })
+            
+        return render(request, 'rentals/addTenant.html',
+                             {'messages': "No tenants found"}
+                             )
+    
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        next_of_kin = request.POST.get('kin')
         
+        tenant = Tenant(name=name, email=email, phone=phone,
+                        next_of_kin=next_of_kin)
+        tenant.save();
+        return render(request, 'rentals/index.html', { 'messages' : 'Record updated successfully' })
+        return HttpResponse("Failed to add tenant")
+    
+    
+def tenants_view(request):
+    tenants = Tenant.objects.all()
+    if tenants:
+        if request.method == 'GET':
+            # return HttpResponse("Method not allowed")
+            return render(request, 'rentals/tenants.html',
+                          {'tenants': tenants}
+                          )
+
+        if request.method == 'POST':
+            return HttpResponse("Method not allowed")
+
+    return render(request, 'rentals/tenats.html',
+                  {'messages': "No tenants found"}
+                  )
+    
+    
+def update_tenant_view(request, id):
+
+    if request.method == 'GET':
+        tenants = Tenant.objects.get(id=id)
+        return render(request, 'rentals/updateTenant.html',
+                      {'tenants': tenants})
+
+    if request.method == 'POST':
+
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        next_of_kin = request.POST.get('kin')
+
+        tenants = Tenant.objects.all()
+
+        Tenant.objects.filter(id=id).update(name = name, email = email, phone = phone,next_of_kin = next_of_kin)
+        # building.save()
+        return render(request, 'rentals/tenants.html', {
+            'messages': 'Updated Successfully',
+            'tenants': tenants
+        })
+
+
+def buildnig_tenants_view(request):
+    building_tenants = BuildingTenant.objects.all()
+    if building_tenants:
+        if request.method == 'GET':
+            # return HttpResponse("Method not allowed")
+            return render(request, 'rentals/buildingTenant.html',
+                          {'building_tenants': building_tenants}
+                          )
+
+        if request.method == 'POST':
+            return HttpResponse("Method not allowed")
+
+    return render(request, 'rentals/buildingTenant.html',
+                  {'messages': "No building_tenants found"}
+                  )
+    
+    
+def add_b_tenant(request):
+    buildings = Building.objects.all();
+    tenants = Tenant.objects.all()
+    
+    if request.method == "GET":
+        return render(request, 'rentals/addbTenant.html',{
+            'buildings': buildings,
+            'tenants': tenants
+        })
         
+    if request.method == "POST":
+        building = request.POST.get('building')
+        tenant = request.POST.get('tenant')
+        date = request.POST.get('date')
+        amount = request.POST.get('amount')
+        status = request.POST.get('status')
+        
+        building_tenant = BuildingTenant(building=building, tenant=tenant, check_in_date=date,
+                                         contract_amount=amount,status=status)
+        building_tenant.save()
+        
+        return render(request, 'rentals/addbTenant.html')
+    
