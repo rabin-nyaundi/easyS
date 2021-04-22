@@ -18,4 +18,6 @@ urlpatterns = [
     
     path('building_tenants/', views.buildnig_tenants_view, name='btenants'),
     path('add_b_tenants/', views.add_b_tenant, name='addbtenants'),
+    path('update_b_tenant/<int:id>/', views.update_b_tenant, name='update_building_tenant'),
+
 ]

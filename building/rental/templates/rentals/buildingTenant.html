@@ -17,30 +17,34 @@
         </thead>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Owner</th>
-                    <th>Units </th>
+                    <th>Building</th>
+                    <th>Tenant</th>
+                    <th>Date</th>
+                    <th>Amount </th>
+                    <th>Status </th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                {% for building in buildings %}
+                {% for b_tenant in building_tenants %}
                 <tr>
                     <td>
-                        {{building.name}}
+                        {{b_tenant.building}}
                     </td>
                     <td>
-                        {{building.location}}
+                        {{b_tenant.tenant}}
                     </td>
                     <td>
-                        {{building.owner}}
+                        {{b_tenant.check_in_date}}
+                    </td>
+                     <td>
+                        {{b_tenant.contract_amount}}
                     </td>
                     <td>
-                        {{building.units_count}}
+                        {{b_tenant.status}}
                     </td>
                     <td>
-                        <a class="btn btn-success" href="{% url 'updateBuilding' building.id%} "><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-success" href="{% url 'update_building_tenant' b_tenant.id%} "><i class="fa fa-pencil"></i></a>
                     </td>
                 </tr>
                 {% endfor %}

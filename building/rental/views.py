@@ -192,7 +192,7 @@ def buildnig_tenants_view(request):
         if request.method == 'POST':
             return HttpResponse("Method not allowed")
 
-    return render(request, 'rentals/buildingTenant.html',
+    return render(request, 'rentals/index.html',
                   {'messages': "No building_tenants found"}
                   )
     
@@ -200,6 +200,7 @@ def buildnig_tenants_view(request):
 def add_b_tenant(request):
     buildings = Building.objects.all();
     tenants = Tenant.objects.all()
+    b_tenant = BuildingTenant.objects.all()
     
     if request.method == "GET":
         return render(request, 'rentals/addbTenant.html',{
@@ -208,8 +209,10 @@ def add_b_tenant(request):
         })
         
     if request.method == "POST":
-        building = request.POST.get('building')
-        tenant = request.POST.get('tenant')
+        build = request.POST.get('building')
+        building = Building.objects.get(id=build)
+        ten = request.POST.get('tenant')
+        tenant = Tenant.objects.get(id=ten)
         date = request.POST.get('date')
         amount = request.POST.get('amount')
         status = request.POST.get('status')
@@ -218,5 +221,29 @@ def add_b_tenant(request):
                                          contract_amount=amount,status=status)
         building_tenant.save()
         
-        return render(request, 'rentals/addbTenant.html')
+        return redirect('btenants')
+
+def update_b_tenant(request, id):
+    buildings = Building.objects.all()
+    tenants = Tenant.objects.all()
     
+    b_tenant = BuildingTenant.objects.get(id=id)
+    if request.method == 'GET':
+        return render(request, 'rentals/update_b_tenant.html',
+                      {'b_tenant': b_tenant,
+                       'buildings': buildings,
+                       'tenants': tenants
+                       })
+        
+    if request.method == 'POST':
+        build = request.POST.get('building')
+        building = Building.objects.get(id=build)
+        ten = request.POST.get('tenant')
+        tenant = Tenant.objects.get(id=ten)
+        date = request.POST.get('date')
+        amount = request.POST.get('amount')
+        status = request.POST.get('status')
+        
+        BuildingTenant.objects.filter(id=id).update(building=building, tenant=tenant, check_in_date=date,
+                                                    contract_amount=amount, status=status)
+        return redirect('btenants')
