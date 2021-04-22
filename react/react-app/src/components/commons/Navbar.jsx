@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Nav, NavDropdown } from 'react-bootstrap';
-import Navbar from 'react-bootstrap/Navbar'
+import Navbar from 'react-bootstrap/Navbar';
 
 class NavBar extends Component {
     render() { 
@@ -10,7 +10,7 @@ class NavBar extends Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                    <Nav.Link href="#features">Home</Nav.Link>
+                    <Nav.Link href="/users">Home</Nav.Link>
                     <Nav.Link href="#pricing">Users</Nav.Link>
                     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
